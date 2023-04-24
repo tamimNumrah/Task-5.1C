@@ -1,9 +1,10 @@
 package com.tamim.newsapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class News {
+public class News implements Serializable {
     private String title;
     private String details;
     private String imageUrl;
