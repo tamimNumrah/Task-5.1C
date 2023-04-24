@@ -38,12 +38,24 @@ public class News {
         this.imageUrl = imageUrl;
     }
 
+    public static List<News> loadStory() {
+        List<News> newsList = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            String title = "Story Title " + (i+1);
+            String details = "This is a sample description for news item number " + (i+1);
+            String imageURL = "https://dummyimage.com/400x400/ffbb86fc&text=Top+Story+" + (i+1);
+            News news = new News(title, details, imageURL);
+            newsList.add(news);
+        }
+        return newsList;
+    }
+
     public static List<News> loadNews() {
         List<News> newsList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             String title = "News Title " + (i+1);
             String details = "This is a sample description for news item number " + (i+1);
-            String imageURL = "https://dummyimage.com/400x400/03dac5&text=News+Image+" + (i+1);
+            String imageURL = "https://dummyimage.com/600x400/03dac5&text=News+Image+" + (i+1);
             News news = new News(title, details, imageURL);
             newsList.add(news);
         }
