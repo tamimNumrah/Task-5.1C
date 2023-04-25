@@ -42,8 +42,6 @@ public class NewsListFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment NewsListFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -74,12 +72,12 @@ public class NewsListFragment extends Fragment {
 
         horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         horizontalAdapter = new HorizontalRecyclerViewAdapter(News.loadStory(), new OnItemClickListener() {
-            @Override public void onItemClick(News news) {
+            @Override public void onItemClick(News news, List<News> relatedNews) {
                 System.out.println("story "+news.getTitle()+" clicked!");
                 FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.fragment_container, NewsFragment.newInstance(news), null)
+                        .replace(R.id.fragment_container, NewsFragment.newInstance(news, relatedNews, context), null)
                         .commit();
             }
         });
@@ -87,12 +85,12 @@ public class NewsListFragment extends Fragment {
         horizontalRecyclerView.setAdapter(horizontalAdapter);
 
         verticalAdapter = new VerticalRecyclerViewAdapter(News.loadNews(), new OnItemClickListener() {
-            @Override public void onItemClick(News news) {
+            @Override public void onItemClick(News news, List<News> relatedNews) {
                 System.out.println("news "+news.getTitle()+" clicked!");
                 FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.fragment_container, NewsFragment.newInstance(news), null)
+                        .replace(R.id.fragment_container, NewsFragment.newInstance(news, relatedNews, context), null)
                         .commit();
             }
         });
@@ -120,7 +118,7 @@ public class NewsListFragment extends Fragment {
             public void bind(final News news, final OnItemClickListener listener) {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
-                        listener.onItemClick(news);
+                        listener.onItemClick(news, newsList);
                     }
                 });
             }
@@ -166,7 +164,7 @@ public class NewsListFragment extends Fragment {
             public void bind(final News news, final OnItemClickListener listener) {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
-                        listener.onItemClick(news);
+                        listener.onItemClick(news, newsList);
                     }
                 });
             }
